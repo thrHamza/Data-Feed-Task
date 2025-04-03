@@ -34,9 +34,7 @@ class CsvReaderCommand extends Command
 
         try {
             $data = $this->csvReader->read($filePath);
-            foreach ($data as $row) {
-                $output->writeln(json_encode($row, JSON_PRETTY_PRINT));
-            }
+            $output->writeln("<info>CSV file read successfully with ". count($data). " rows</info>");
         } catch (\Exception $e) {
             $output->writeln("<error>" . $e->getMessage() . "</error>");
             return Command::FAILURE;

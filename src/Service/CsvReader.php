@@ -7,9 +7,11 @@ use Psr\Log\LoggerInterface;
 class CsvReader
 {
     private LoggerInterface $logger;
+    private ProductValidator $validator;
 
-    public function __construct(LoggerInterface $logger){
+    public function __construct(LoggerInterface $logger, ProductValidator $validator){
         $this->logger = $logger;
+        $this->validator = $validator;
     }
 
     public function read(string $filePath) : array{
@@ -32,8 +34,15 @@ class CsvReader
                     continue;
                 }
 
-                $data[] = array_combine($header, $row);
+                $rowData = array_combine($header, $row);
+                $errors = $this->validator->validate($rowData);
 
+                if (!empty($errors)){
+                    $this->logger->warning("Skipping row $rowNumber due to errors: " . implode(', ', $errors));
+                    continue;
+                }
+
+                $data[] = $rowData;
             }
             fclose($handle);
         }
