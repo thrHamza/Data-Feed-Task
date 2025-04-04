@@ -9,8 +9,8 @@ class CsvReader
     private LoggerInterface $logger;
     private ProductValidator $validator;
 
-    public function __construct(LoggerInterface $logger, ProductValidator $validator){
-        $this->logger = $logger;
+    public function __construct(LoggerInterface $importLogger, ProductValidator $validator){
+        $this->logger = $importLogger;
         $this->validator = $validator;
     }
 

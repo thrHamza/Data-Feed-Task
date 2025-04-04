@@ -22,11 +22,11 @@ class ImportProductsCommand extends Command
     private LoggerInterface $logger;
 
 
-    public function __construct(CsvReader $csvReader, ProductImporter $productImporter, LoggerInterface $logger){
+    public function __construct(CsvReader $csvReader, ProductImporter $productImporter, LoggerInterface $importLogger){
         parent::__construct();
         $this->csvReader = $csvReader;
         $this->productImporter = $productImporter;
-        $this->logger = $logger;
+        $this->logger = $importLogger;
     }
 
     protected function configure(): void

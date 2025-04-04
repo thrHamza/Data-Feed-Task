@@ -10,10 +10,10 @@ class ProductImporter
     private StorageInterface $storage;
     protected LoggerInterface $logger;
 
-    public function __construct(StorageInterface $storage, LoggerInterface $logger)
+    public function __construct(StorageInterface $storage, LoggerInterface $importLogger)
     {
         $this->storage = $storage;
-        $this->logger = $logger;
+        $this->logger = $importLogger;
     }
 
     public function import(array $products): void{

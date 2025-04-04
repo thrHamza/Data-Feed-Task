@@ -30,3 +30,17 @@ services:
     # Alias for StorageInterface
     App\Storage\StorageInterface:
         class: App\Storage\MySQLStorage
+
+    # Dedicated Logger
+    import.logger:
+        class: Psr\Log\LoggerInterface
+        factory: [ '@monolog.logger', 'withName' ]
+        arguments: [ 'import' ]
+
+    App\Service\CsvReader:
+        arguments:
+            $importLogger: '@monolog.logger.import'
+
+    App\Service\ProductImporter:
+        arguments:
+            $importLogger: '@monolog.logger.import'
